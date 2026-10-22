@@ -222,7 +222,7 @@ const PROPERTIES_DATA = [
       "assets/images/3bhk-family-comfort.jpg",
       "assets/images/prime-2-3bhk-luxury.webp"
     ],
-    video: "assets/videos/bigcarpet_Area.mp4",
+    video: "assets/videos/property-tour-spacious-carpet.mp4",
     videoPoster: "assets/images/2-5bhk-loft-duplex.jpg"
   },
   {
