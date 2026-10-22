@@ -5,3 +5,6 @@ assets/building4.html
 assets/*.mp4
 assets/videos/perfect-deals-25-year-journey.mp4
 scratch/
+
+.vercel
+.env*
