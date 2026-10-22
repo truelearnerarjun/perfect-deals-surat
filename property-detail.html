@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Property Details | Perfect Deals Surat</title>
+  <meta name="description" id="pageMetaDesc" content="Explore verified property specifications, pricing, photo gallery, and floor plan details in Surat with Perfect Deals." />
+  <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Drawer & Backdrop -->
+  <div class="mobile-nav__backdrop" id="navBackdrop" aria-hidden="true"></div>
+  <aside class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav__header">
+      <div class="navbar__brand">
+        <div class="navbar__logo-img"><img src="assets/images/logo.jpg" alt="Perfect Deals" /></div>
+        <div class="navbar__brand-text">
+          <span class="navbar__brand-name">PERFECT <span>DEALS</span></span>
+          <span class="navbar__brand-tagline">Surat's Property Experts</span>
+        </div>
+      </div>
+      <button class="modal-close-btn" id="mobileNavClose">&times;</button>
+    </div>
+    <nav class="mobile-nav__links">
+      <a href="index.html" class="mobile-nav__link">Home</a>
+      <a href="buy.html" class="mobile-nav__link">Buy Property</a>
+      <a href="rent.html" class="mobile-nav__link">Rent & Lease</a>
+      <a href="sell.html" class="mobile-nav__link">Sell / List Property</a>
+      <a href="commercial.html" class="mobile-nav__link">Commercial Real Estate</a>
+      <a href="about.html" class="mobile-nav__link">About Perfect Deals</a>
+      <a href="contact.html" class="mobile-nav__link">Contact Us</a>
+    </nav>
+  </aside>
+
+  <!-- Sticky Navbar -->
+    <!-- ===================== TOP 3-HOUR TEMPORARY LIVE BAR ===================== -->
+  <div class="top-preview-bar" id="topPreviewBar">
+    <div class="top-preview-bar__inner">
+      <div style="display: flex; align-items: center; gap: 0.65rem;">
+        <span class="top-preview-bar__badge">
+          <span class="top-preview-bar__pulse"></span>
+          LIVE PREVIEW
+        </span>
+        <span style="color: var(--text-secondary); font-size: 0.76rem;">Temporary Live Session Active for <strong>3 Hours</strong>:</span>
+        <span class="top-preview-bar__timer" id="previewCountdown">02h 59m 59s remaining</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span style="color: var(--text-muted); font-size: 0.74rem;">Pavilion Plaza, Surat • 25+ Yrs Trust</span>
+        <a href="https://wa.me/919979641000?text=Hello%20Harsh%20bhai,%20I%20am%20viewing%20the%20live%20preview%20of%20Perfect%20Deals%20Surat." target="_blank" rel="noopener" class="btn btn-whatsapp" style="padding: 0.2rem 0.65rem; font-size: 0.68rem; height: 24px;">
+          WhatsApp Live
+        </a>
+      </div>
+    </div>
+  </div>
+
+<header class="navbar" id="navbar">
+    <a href="index.html" class="navbar__brand">
+      <div class="navbar__logo-img"><img src="assets/images/logo.jpg" alt="Perfect Deals Surat" /></div>
+      <div class="navbar__brand-text">
+        <span class="navbar__brand-name">PERFECT <span>DEALS</span></span>
+        <span class="navbar__brand-tagline">Property Specification</span>
+      </div>
+    </a>
+    <nav class="navbar__links">
+      <a href="index.html" class="navbar__link">Home</a>
+      <a href="buy.html" class="navbar__link active">Buy</a>
+      <a href="rent.html" class="navbar__link">Rent</a>
+      <a href="sell.html" class="navbar__link">Sell</a>
+      <a href="commercial.html" class="navbar__link">Commercial</a>
+      <a href="about.html" class="navbar__link">About</a>
+      <a href="contact.html" class="navbar__link">Contact</a>
+    </nav>
+    <div class="navbar__actions">
+      <a href="tel:+919979641000" class="navbar__phone-cta">099796 41000</a>
+      <a id="navWhatsappBtn" href="https://wa.me/919979641000" target="_blank" rel="noopener" class="btn btn-whatsapp" style="padding: 0.55rem 1.15rem; font-size: 0.76rem;">WhatsApp</a>
+      <button class="navbar__hamburger" id="mobileNavOpen"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main style="padding-top: calc(var(--nav-height) + 2rem);" id="propertyDetailContainer">
+    <!-- Populated dynamically by script below -->
+    <div class="container section-pad" style="text-align: center;">
+      <p style="font-size: 1.25rem; color: var(--text-secondary);">Loading verified property details...</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 Perfect Deals Surat. All Rights Reserved.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="index.html">Home</a>
+          <a href="buy.html">Buy</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/properties.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPropertyDetailPage();
+    });
+
+    function renderPropertyDetailPage() {
+      const params = new URLSearchParams(window.location.search);
+      const propId = params.get('id') || 'pal-signature-residences';
+
+      if (typeof PROPERTIES_DATA === 'undefined') return;
+
+      const prop = PROPERTIES_DATA.find(p => p.id === propId) || PROPERTIES_DATA[0];
+      if (!prop) return;
+
+      // Update Page Meta
+      document.title = `${prop.title} | ${prop.locality} | Perfect Deals Surat`;
+      const metaDesc = document.getElementById('pageMetaDesc');
+      if (metaDesc) metaDesc.content = `${prop.title} in ${prop.locality}. Price: ${prop.priceDisplay}. ${prop.description.substring(0, 140)}`;
+
+      const waText = encodeURIComponent(`Hello Harsh bhai, I am inquiring about "${prop.title}" in ${prop.locality} (${prop.priceDisplay}). Please share the full brochure, site layout, and arrange a private tour.`);
+      const waUrl = `https://wa.me/919979641000?text=${waText}`;
+
+      const navWa = document.getElementById('navWhatsappBtn');
+      if (navWa) navWa.href = waUrl;
+
+      const container = document.getElementById('propertyDetailContainer');
+      container.innerHTML = `
+        <div class="container" style="padding-bottom: 5rem;">
+          
+          <!-- Breadcrumb Navigation -->
+          <nav aria-label="breadcrumb" style="display: flex; gap: 0.5rem; align-items: center; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+            <a href="index.html" style="color: var(--text-secondary);">Home</a>
+            <span>/</span>
+            <a href="buy.html" style="color: var(--text-secondary);">Buy Property</a>
+            <span>/</span>
+            <span style="color: var(--brand-gold-light);">${prop.locality}</span>
+          </nav>
+
+          <!-- Header Title & Badges -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1.5rem;">
+            <div>
+              <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand-crimson-light); background: rgba(200,46,43,0.12); padding: 0.35rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-crimson);">
+                  ${prop.badge}
+                </span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">📍 ${prop.address}</span>
+              </div>
+              <h1 style="font-size: clamp(2rem, 3.5vw, 3.2rem); color: #fff; margin-bottom: 0.25rem;">${prop.title}</h1>
+              <p style="font-size: 1.05rem; color: var(--brand-gold-light); font-style: italic;">${prop.tagline}</p>
+            </div>
+
+            <div style="text-align: right; background: var(--bg-card); padding: 1.25rem 2rem; border-radius: var(--radius-md); border: 1px solid var(--border-gold);">
+              <span style="font-size: 0.74rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; display: block;">Verified Pricing</span>
+              <div style="font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: #fff;">${prop.priceDisplay}</div>
+              <span style="font-size: 0.78rem; color: var(--brand-gold);">100% Clear Title • Loan Ready</span>
+            </div>
+          </div>
+
+          <!-- Media Gallery Grid -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 3.5rem;">
+            <div style="aspect-ratio: 16 / 10; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-medium); box-shadow: var(--shadow-lg);">
+              <img id="detailMainImage" src="${prop.images[0]}" alt="${prop.title}" />
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              ${prop.images.slice(1, 4).map((img, idx) => `
+                <div style="flex: 1; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); cursor: pointer;" onclick="document.getElementById('detailMainImage').src='${img}'">
+                  <img src="${img}" alt="${prop.title} view ${idx+2}" />
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Main Specs & Enquiry Grid -->
+          <div style="display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 3.5rem;">
+            
+            <!-- Specs & Description -->
+            <div>
+              <h2 style="font-size: 1.75rem; color: #fff; margin-bottom: 1.25rem;">Property Overview</h2>
+              <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem;">
+                ${prop.description}
+              </p>
+
+              <!-- Detailed Specs Table -->
+              <div style="background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-light); padding: 1.75rem; margin-bottom: 2.5rem;">
+                <h3 style="font-size: 1.15rem; color: var(--brand-gold-light); margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                  Verified Specifications
+                </h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                  <div>
+                    <span style="font-size: 0.76rem; color: var(--text-muted); text-transform: uppercase;">Configuration</span>
+                    <p style="font-size: 1rem; color: #fff; font-weight: 500;">${prop.bhk}</p>
+                  </div>
+                  <div>
+                    <span style="font-size: 0.76rem; color: var(--text-muted); text-transform: uppercase;">Carpet Area</span>
+                    <p style="font-size: 1rem; color: #fff; font-weight: 500;">${prop.carpetArea}</p>
+                  </div>
+                  <div>
+                    <span style="font-size: 0.76rem; color: var(--text-muted); text-transform: uppercase;">Possession Status</span>
+                    <p style="font-size: 1rem; color: #fff; font-weight: 500;">${prop.possession}</p>
+                  </div>
+                  <div>
+                    <span style="font-size: 0.76rem; color: var(--text-muted); text-transform: uppercase;">Vastu & Direction</span>
+                    <p style="font-size: 1rem; color: #fff; font-weight: 500;">${prop.facing}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Highlights -->
+              <div style="margin-bottom: 2.5rem;">
+                <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Key Highlights</h3>
+                <ul style="display: flex; flex-direction: column; gap: 0.75rem; color: var(--text-secondary); font-size: 0.95rem;">
+                  ${prop.highlights.map(h => `<li style="display: flex; gap: 0.65rem; align-items: flex-start;"><span style="color: var(--brand-crimson); font-weight: bold;">✓</span> ${h}</li>`).join('')}
+                </ul>
+              </div>
+
+              <!-- Amenities Grid -->
+              <div style="margin-bottom: 2.5rem;">
+                <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Lifestyle Amenities</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                  ${prop.amenities.map(a => `
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); padding: 0.85rem 1.15rem; border-radius: var(--radius-sm); font-size: 0.88rem; color: #fff; display: flex; align-items: center; gap: 0.65rem;">
+                      <span style="color: var(--brand-gold);">✦</span> ${a}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              ${prop.video ? `
+                <!-- Walkthrough Video Player -->
+                <div style="margin-top: 3rem;">
+                  <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 1rem;">Property Video Walkthrough</h3>
+                  <div style="aspect-ratio: 16 / 9; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-gold); background: #000;">
+                    <video controls playsinline poster="${prop.videoPoster || prop.images[0]}" style="width: 100%; height: 100%;">
+                      <source src="${prop.video}" type="video/mp4">
+                      Your browser does not support HTML5 video.
+                    </video>
+                  </div>
+                </div>
+              ` : ''}
+
+            </div>
+
+            <!-- Sticky Enquiry & Schedule Visit Box -->
+            <div>
+              <div class="glass-panel" style="position: sticky; top: calc(var(--nav-height) + 2rem); padding: 2.5rem;">
+                <span class="eyebrow">Direct Advisory</span>
+                <h3 style="font-size: 1.6rem; color: #fff; margin-top: 0.35rem; margin-bottom: 0.5rem;">Interested in this Property?</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                  Schedule a private guided tour with Harsh Baugtani or request the complete official brochure.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.75rem;">
+                  <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-whatsapp" style="height: 50px; font-size: 0.82rem;">
+                    Inquire on WhatsApp Now
+                  </a>
+                  <a href="tel:+919979641000" class="btn btn-secondary" style="height: 48px;">
+                    Call Harsh Baugtani (099796 41000)
+                  </a>
+                </div>
+
+                <div style="border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+                  <h4 style="font-size: 0.85rem; color: var(--brand-gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+                    Perfect Deals Guarantee
+                  </h4>
+                  <ul style="font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li>• 100% verified legal title report</li>
+                    <li>• Zero hidden brokerage markup</li>
+                    <li>• Free bank loan eligibility check</li>
+                    <li>• Complete assistance till registry</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
