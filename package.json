@@ -1,0 +1,10 @@
+{
+  "name": "perfect-deals-surat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Perfect Deals Surat - Premium Real Estate Website",
+  "scripts": {
+    "build": "echo 'Static build ready'",
+    "start": "node server.js"
+  }
+}
