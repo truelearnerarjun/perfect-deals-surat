@@ -503,6 +503,15 @@ function initPreviewCountdown() {
   if (!timerDisplay) return;
 
   const THREE_HOURS_MS = 3 * 60 * 60 * 1000;
+  const RESET_VERSION = 'session_reset_3hours_fresh';
+
+  // Force clean 3-hour reset for the user
+  const urlParams = new URLSearchParams(window.location.search);
+  if (localStorage.getItem('perfectDealsResetFlag') !== RESET_VERSION || urlParams.has('reset')) {
+    localStorage.removeItem('perfectDealsSessionEnd');
+    localStorage.setItem('perfectDealsResetFlag', RESET_VERSION);
+  }
+
   let targetTime = localStorage.getItem('perfectDealsSessionEnd');
 
   if (!targetTime || isNaN(parseInt(targetTime, 10)) || parseInt(targetTime, 10) < Date.now()) {
